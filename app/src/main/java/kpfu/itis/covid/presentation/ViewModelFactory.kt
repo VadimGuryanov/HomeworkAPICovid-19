@@ -2,23 +2,18 @@ package kpfu.itis.covid.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kpfu.itis.covid.presentation.details.CountryViewModel
-import kpfu.itis.covid.presentation.list.CountriesViewModel
+import javax.inject.Inject
+import javax.inject.Provider
 
-class ViewModelFactory: ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        when {
-            modelClass.isAssignableFrom(CountriesViewModel::class.java) -> {
-                CountriesViewModel() as? T
-                    ?: throw IllegalArgumentException("Unknown ViewModel class")
-            }
-            modelClass.isAssignableFrom(CountryViewModel::class.java) -> {
-                CountryViewModel() as? T
-                    ?: throw IllegalArgumentException("Unknown ViewModel class")
-            }
-            else -> {
-                throw IllegalArgumentException("Unknown ViewModel class")
-            }
-        }
+class ViewModelFactory @Inject constructor(
+    private val viewModelMap: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        val result = viewModelMap[modelClass] ?: viewModelMap.entries.firstOrNull {
+            modelClass.isAssignableFrom(it.key)
+        }?.value ?: throw IllegalArgumentException("Unknown model class $modelClass")
+        @Suppress("UNCHECKED_CAST")
+        return result.get() as T
+    }
 }
+

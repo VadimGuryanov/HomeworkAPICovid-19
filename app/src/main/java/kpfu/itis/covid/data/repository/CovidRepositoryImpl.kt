@@ -1,13 +1,12 @@
 package kpfu.itis.covid.data.repository
 
 import io.reactivex.Single
-import kpfu.itis.covid.data.network.ApiFactory
 import kpfu.itis.covid.data.network.CovidService
 import kpfu.itis.covid.data.network.models.CountryCovidInfo
 import kpfu.itis.covid.data.network.models.GlobalCovidInfo
 
 class CovidRepositoryImpl constructor(
-    private val api: CovidService = ApiFactory.covidService
+    private val api: CovidService
 ) : CovidRepository{
 
     override fun getGlobalInfo(): Single<GlobalCovidInfo> =

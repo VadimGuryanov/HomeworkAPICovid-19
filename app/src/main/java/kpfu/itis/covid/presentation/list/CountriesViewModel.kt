@@ -1,6 +1,5 @@
 package kpfu.itis.covid.presentation.list
 
-import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
@@ -14,11 +13,12 @@ import io.reactivex.schedulers.Schedulers
 import kpfu.itis.covid.data.network.models.CountryCovidInfo
 import kpfu.itis.covid.data.network.models.Response
 import kpfu.itis.covid.domain.CovidInteractor
-import kpfu.itis.covid.domain.CovidInteractorImpl
+import javax.inject.Inject
 
-class CountriesViewModel constructor(
-    private val interactor: CovidInteractor = CovidInteractorImpl()
+class CountriesViewModel(
+    private val interactor: CovidInteractor
 ) : ViewModel() {
+
 
     private var disposable: Disposable? = null
     private lateinit var countriesLiveData: MutableLiveData<Response<List<CountryCovidInfo>>>

@@ -8,14 +8,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import kpfu.itis.covid.di.Injector
 import kpfu.itis.covid.R
-import kpfu.itis.covid.databinding.ActivityDetailsCountryBinding
+import kpfu.itis.covid.databinding.ActivityDetailsCountryBindingImpl
 import kpfu.itis.covid.presentation.ViewModelFactory
+import javax.inject.Inject
 
 class CountryDetailsActivity : AppCompatActivity() {
 
-    private lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var binding : ActivityDetailsCountryBinding
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var binding : ActivityDetailsCountryBindingImpl
 
     companion object {
 
@@ -30,12 +34,11 @@ class CountryDetailsActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Injector.plusCountryDetailsComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_country)
-        viewModelFactory = ViewModelFactory()
         initCountry(intent.getLongExtra(KEY_COUNTRY_ID, -1))
-        binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_details_country)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details_country)
     }
 
     private fun initCountry(id : Long) {
@@ -64,6 +67,11 @@ class CountryDetailsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getViewModel() = ViewModelProvider(this, viewModelFactory).get(CountryViewModel::class.java)
+
+    override fun onDestroy() {
+        Injector.clearCountryDetailsComponent()
+        super.onDestroy()
+    }
+
 }

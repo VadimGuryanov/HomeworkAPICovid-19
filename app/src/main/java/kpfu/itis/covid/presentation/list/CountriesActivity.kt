@@ -12,19 +12,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_countries.*
+import kpfu.itis.covid.di.Injector
 import kpfu.itis.covid.R
 import kpfu.itis.covid.presentation.ViewModelFactory
 import kpfu.itis.covid.presentation.details.CountryDetailsActivity
 import kpfu.itis.covid.presentation.list.recycleview.CountriesAdapter
+import javax.inject.Inject
 
 class CountriesActivity : AppCompatActivity() {
 
-    private lateinit var viewModelFactory: ViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Injector.plusCountriesListComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_countries)
-        viewModelFactory = ViewModelFactory()
         observeViewModel()
     }
 
@@ -104,5 +107,11 @@ class CountriesActivity : AppCompatActivity() {
     }
 
     private fun getViewModel() = ViewModelProvider(this, viewModelFactory).get(CountriesViewModel::class.java)
+
+
+    override fun onDestroy() {
+        Injector.clearCountriesListComponent()
+        super.onDestroy()
+    }
 
 }

@@ -4,10 +4,9 @@ import io.reactivex.Single
 import kpfu.itis.covid.data.network.models.CountryCovidInfo
 import kpfu.itis.covid.data.network.models.GlobalCovidInfo
 import kpfu.itis.covid.data.repository.CovidRepository
-import kpfu.itis.covid.data.repository.CovidRepositoryImpl
 
-class CovidInteractorImpl constructor(
-    private val repository: CovidRepository = CovidRepositoryImpl()
+class CovidInteractorImpl (
+    private val repository: CovidRepository
 ) : CovidInteractor{
 
     override fun getGlobalInfo(): Single<GlobalCovidInfo> =
