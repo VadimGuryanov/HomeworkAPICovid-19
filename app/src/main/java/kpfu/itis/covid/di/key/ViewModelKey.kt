@@ -1,4 +1,4 @@
-package kpfu.itis.covid.di.scope
+package kpfu.itis.covid.di.key
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

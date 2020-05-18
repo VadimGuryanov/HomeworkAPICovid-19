@@ -1,6 +1,6 @@
 package kpfu.itis.covid.data.network.models
 
-class Response<T>(val data: T?, val error: Throwable?) {
+data class Response<T>(val data: T?, val error: Throwable?) {
 
     companion object {
         fun <T> success(data: T) : Response<T> = Response(data, null)

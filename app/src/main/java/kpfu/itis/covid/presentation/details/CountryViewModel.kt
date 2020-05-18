@@ -14,7 +14,6 @@ import io.reactivex.schedulers.Schedulers
 import kpfu.itis.covid.data.network.models.CountryCovidInfo
 import kpfu.itis.covid.data.network.models.Response
 import kpfu.itis.covid.domain.CovidInteractor
-import javax.inject.Inject
 
 class CountryViewModel(
     private val interactor: CovidInteractor

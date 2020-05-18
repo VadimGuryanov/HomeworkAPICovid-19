@@ -45,23 +45,19 @@ class CountryDetailsActivity : AppCompatActivity() {
         getViewModel().apply {
             getCountryInfo(id).observe(this@CountryDetailsActivity, Observer {
                 when  {
-                    it.data != null -> {
-                        binding.country = it.data
-                    }
-                    it.error != null -> {
+                    it.data != null -> binding.country = it.data
+                    it.error != null ->
                         Snackbar.make(
                             findViewById(android.R.id.content),
                             it.error.message ?: "No connection",
                             Snackbar.LENGTH_INDEFINITE)
                             .show()
-                    }
-                    else -> {
+                    else ->
                         Snackbar.make(
                             findViewById(android.R.id.content),
                             "No connection",
                             Snackbar.LENGTH_INDEFINITE)
                             .show()
-                    }
                 }
             })
         }

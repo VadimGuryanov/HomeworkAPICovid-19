@@ -9,7 +9,6 @@ import kpfu.itis.covid.di.module.NetModule
 import kpfu.itis.covid.di.module.ServiceModule
 import javax.inject.Singleton
 
-
 @Singleton
 @Component(
     modules = [

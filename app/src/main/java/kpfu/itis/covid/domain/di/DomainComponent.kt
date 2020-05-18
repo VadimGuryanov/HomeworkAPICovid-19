@@ -4,7 +4,6 @@ import dagger.Subcomponent
 import kpfu.itis.covid.presentation.list.di.component.CountriesComponent
 import kpfu.itis.covid.presentation.details.di.component.CountryDetailsComponent
 
-
 @DomainScope
 @Subcomponent(modules = [DomainModule::class])
 interface DomainComponent {

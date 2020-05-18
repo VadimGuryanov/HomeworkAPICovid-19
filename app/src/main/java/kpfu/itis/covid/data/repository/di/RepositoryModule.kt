@@ -5,7 +5,6 @@ import dagger.Provides
 import kpfu.itis.covid.data.network.CovidService
 import kpfu.itis.covid.data.repository.CovidRepository
 import kpfu.itis.covid.data.repository.CovidRepositoryImpl
-import kpfu.itis.covid.data.repository.di.RepositoryScope
 
 @Module
 class RepositoryModule {

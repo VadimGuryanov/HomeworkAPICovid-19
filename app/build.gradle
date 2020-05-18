@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.gitlab.arturbosch.detekt'
 
 android {
     compileSdkVersion 29
@@ -31,6 +32,18 @@ android {
         it.buildConfigField 'String', 'API_ENDPOINT', baseUrl
     }
 
+}
+
+detekt {
+    failFast = true
+    buildUponDefaultConfig = true
+    config = files("$rootDir/config/detekt/detekt.yml")
+
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        txt.enabled = false
+    }
 }
 
 dependencies {

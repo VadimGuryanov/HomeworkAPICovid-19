@@ -42,23 +42,19 @@ class CountriesActivity : AppCompatActivity() {
                 getViewModel().apply {
                     getIdCountry(query ?: "").observe(this@CountriesActivity, Observer {
                         when {
-                            it.data != null -> {
-                                navigateTo(it.data)
-                            }
-                            it.error != null -> {
+                            it.data != null -> navigateTo(it.data)
+                            it.error != null ->
                                 Snackbar.make(
                                     findViewById(android.R.id.content),
                                     it.error.message ?: "No connection",
                                     Snackbar.LENGTH_INDEFINITE)
                                     .show()
-                            }
-                            else -> {
+                            else ->
                                 Snackbar.make(
                                     findViewById(android.R.id.content),
                                     "we have problem",
                                     Snackbar.LENGTH_INDEFINITE)
                                     .show()
-                            }
                         }
                     })
                 }
@@ -73,7 +69,7 @@ class CountriesActivity : AppCompatActivity() {
         getViewModel().apply {
             getCountries().observe(this@CountriesActivity, Observer {
                 when {
-                    it.data != null -> {
+                    it.data != null ->
                         rv_countries.apply {
                             layoutManager = LinearLayoutManager(this@CountriesActivity)
                             adapter = CountriesAdapter(
@@ -82,21 +78,18 @@ class CountriesActivity : AppCompatActivity() {
                                 {iv, url -> download(iv, url)}
                             )
                         }
-                    }
-                    it.error != null -> {
+                    it.error != null ->
                         Snackbar.make(
                             findViewById(android.R.id.content),
                             it.error.message ?: "No connection",
                             Snackbar.LENGTH_INDEFINITE)
                             .show()
-                    }
-                    else -> {
+                    else ->
                         Snackbar.make(
                             findViewById(android.R.id.content),
                             "we have problem",
                             Snackbar.LENGTH_INDEFINITE)
                             .show()
-                    }
                 }
             })
         }
